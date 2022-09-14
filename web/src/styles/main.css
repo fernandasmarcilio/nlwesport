@@ -1,0 +1,20 @@
+@tailwind base;
+
+body {
+  @apply bg-[color:#131314] bg-galaxy bg-cover bg-no-repeat;
+}
+
+.gradient-text {
+  @apply bg-gradient-to-r from-[color:#9572FC] via-[color:#43E7AD] to-[color:#E1D55D] bg-clip-text text-transparent;
+}
+
+.gradient-card {
+  @apply bg-gradient-to-b from-transparent to-black;
+}
+
+.gradient-border {
+  @apply bg-gradient-to-r from-[color:#9572FC] via-[color:#43E7AD] to-[color:#E1D55D];
+}
+
+@tailwind components;
+@tailwind utilities;
