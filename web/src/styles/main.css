@@ -4,6 +4,8 @@ body {
   @apply bg-[color:#131314] bg-galaxy bg-cover bg-no-repeat;
 }
 
+@tailwind components;
+
 .gradient-text {
   @apply bg-gradient-to-r from-[color:#9572FC] via-[color:#43E7AD] to-[color:#E1D55D] bg-clip-text text-transparent;
 }
@@ -16,5 +18,12 @@ body {
   @apply bg-gradient-to-r from-[color:#9572FC] via-[color:#43E7AD] to-[color:#E1D55D];
 }
 
-@tailwind components;
+.input-field {
+  @apply flex flex-col gap-2;
+}
+
+.input-field-col-2 {
+  @apply grid grid-cols-2 gap-6;
+}
+
 @tailwind utilities;
