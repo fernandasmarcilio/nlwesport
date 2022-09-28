@@ -18,7 +18,7 @@ export function Home() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    fetch(API_URL)
+    fetch(`${API_URL}/games`)
       .then((response) => response.json())
       .then((data) => {
         setGames(data);

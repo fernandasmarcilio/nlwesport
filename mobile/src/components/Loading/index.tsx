@@ -3,11 +3,15 @@ import { THEME } from '../../theme';
 
 import { styles } from './styles';
 
-export function Loading() {
+interface LoadingProps {
+  color?: 'primary' | 'secondary';
+}
+
+export function Loading({ color = 'primary' }: LoadingProps) {
   return (
     <View style={styles.container}>
       <ActivityIndicator 
-        color={THEME.COLORS.PRIMARY}
+        color={color === 'primary' ? THEME.COLORS.PRIMARY : THEME.COLORS.TEXT}
         size="large"
       />
     </View>

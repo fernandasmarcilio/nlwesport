@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TouchableOpacity, View, Image, FlatList, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {useRoute} from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 
@@ -16,9 +16,12 @@ import { styles } from './styles';
 import logoImage from "../../assets/logo-nlw-esports.png";
 
 import { API_URL } from '../../../const';
+import { DuoMatch } from '../../components/DuoMatch';
 
 export function Game({}) {
   const [ ads, setAds ] = useState<AdsProps[]>([]);
+  const [ duoDiscordSelected, setDuoDiscordSelected ] = useState('');
+  const [ loading, setLoading ] = useState(false);
   
   const route = useRoute();
   const game = route.params as GameParams;
@@ -27,6 +30,20 @@ export function Game({}) {
 
   function handleGoBack() {
     navigation.goBack();
+  }
+
+  function handleOnConnect(ad: AdsProps) {
+    setLoading(true);
+    getDiscordUser(ad.id);
+  }
+
+  async function getDiscordUser(adsId: string) {
+    fetch(`${API_URL}/ads/${adsId}/discord`)
+      .then((response) => response.json())
+      .then((data) => {
+        setDuoDiscordSelected(data.discord);
+        setLoading(false);
+      });
   }
 
   useEffect(() => {
@@ -73,7 +90,7 @@ export function Game({}) {
           data={ads}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <AdsCard data={item} onConnect={() => {}} />
+            <AdsCard data={item} onConnect={() => handleOnConnect(item)} loading={loading} />
           )}
           showsHorizontalScrollIndicator={false}
           horizontal
@@ -86,7 +103,11 @@ export function Game({}) {
           )}
         />
 
-
+        <DuoMatch 
+          visible={duoDiscordSelected.length > 0}
+          discord={duoDiscordSelected}
+          onClose={() => setDuoDiscordSelected('')}
+        />
       </SafeAreaView>
     </Background>
   );

@@ -5,6 +5,7 @@ import { THEME } from "../../theme";
 import { AdsInfo } from "../AdsInfo";
 
 import { styles } from "./styles";
+import { Loading } from "../Loading";
 
 export interface AdsProps {
   hourEnd: string;
@@ -19,9 +20,10 @@ export interface AdsProps {
 interface AdsCardProps {
   data: AdsProps;
   onConnect: () => void;
+  loading: boolean;
 }
 
-export function AdsCard({ data, onConnect }: AdsCardProps) {
+export function AdsCard({ data, onConnect, loading }: AdsCardProps) {
   return (
     <View style={styles.container}>
       <AdsInfo label="Nome" value={data.name} />
@@ -32,9 +34,16 @@ export function AdsCard({ data, onConnect }: AdsCardProps) {
         value={data.useVoiceChannel ? 'Sim' : 'Não'} 
         color={data.useVoiceChannel ? THEME.COLORS.SUCCESS : THEME.COLORS.ALERT} 
       />
-      <TouchableOpacity style={styles.button} onPress={onConnect}>
-        <Ionicons name="game-controller-outline" size={20} color={THEME.COLORS.TEXT} />
-        <Text style={styles.buttonTitle}>Conectar</Text>
+      <TouchableOpacity style={styles.button} onPress={onConnect} disabled={loading}>
+        
+        {loading ? (
+          <Loading color="secondary"/>
+        ) : (
+          <>
+            <Ionicons name="game-controller-outline" size={20} color={THEME.COLORS.TEXT} />
+            <Text style={styles.buttonTitle}>Conectar</Text>
+          </>
+        )}
       </TouchableOpacity>
     </View>
   );
