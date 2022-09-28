@@ -11,12 +11,14 @@ import { Background } from "../../components/Background";
 import { styles } from "./styles";
 import logoImage from "../../assets/logo-nlw-esports.png";
 
+import { API_URL } from '../../../const';
+
 export function Home() {
   const [games, setGames] = useState<GameCardProps[]>([]);
   const navigation = useNavigation();
 
   useEffect(() => {
-    fetch("http://192.168.0.103:3333/games")
+    fetch(API_URL)
       .then((response) => response.json())
       .then((data) => {
         setGames(data);
